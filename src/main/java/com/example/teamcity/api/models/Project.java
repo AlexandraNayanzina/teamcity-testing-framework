@@ -1,6 +1,5 @@
 package com.example.teamcity.api.models;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseModel {
-
-    private String username;
-    private String password;
-
-
+public class Project extends BaseModel {
+    private String parentProject;
+    private String name;
+    @Builder.Default
+    private  String locator = "_Root";
 }
