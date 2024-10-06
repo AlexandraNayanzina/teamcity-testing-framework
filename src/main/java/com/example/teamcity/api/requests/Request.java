@@ -6,8 +6,8 @@ import io.restassured.specification.RequestSpecification;
 
 public class Request {
     /**
-     * Request - class that describes:
-     * specification, endpoint (relative URL, model)
+     * Request - class that describes changeable request parameters such as:
+     * specification, endpoint (relative URL, model or DTO)
      */
 
     protected final RequestSpecification spec;

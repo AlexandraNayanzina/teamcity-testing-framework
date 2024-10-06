@@ -5,13 +5,12 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-
+    // class Config -> Singleton
     private  final static String CONFIG_PROPERTIES = "config.properties";
-
     private static Config config;
-
     private Properties properties;
 
+    // Implement Singleton
     private Config() {
         properties = new Properties();
         loadProperties(CONFIG_PROPERTIES);
@@ -23,6 +22,8 @@ public class Config {
         }
         return config;
     }
+
+    //Reading data from the config file
 
     public void loadProperties(String fileName) {
         try(InputStream stream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
