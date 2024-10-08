@@ -1,6 +1,7 @@
 package com.example.teamcity.api.requests.unchecked;
 
 import com.example.teamcity.api.enums.Endpoint;
+import com.example.teamcity.api.generators.TestDataStorage;
 import com.example.teamcity.api.models.BaseModel;
 import com.example.teamcity.api.requests.CrudInterface;
 import com.example.teamcity.api.requests.Request;
@@ -17,6 +18,7 @@ public class UncheckedBase extends Request implements CrudInterface {
 
     @Override
     public Response create(BaseModel model) {
+        TestDataStorage.getInstance().addCreatedEntity(endpoint, model);
         return RestAssured
                 .given()
                 .contentType(ContentType.JSON)

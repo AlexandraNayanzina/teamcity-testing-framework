@@ -34,6 +34,14 @@ public class TestDataStorage {
         }
     }
 
+    public void removeFromTheMap(Endpoint endpoint, String id) {
+        var endpointEntities = createdEntitiesMap.get(endpoint);
+        if (Objects.nonNull(endpointEntities)) {
+            endpointEntities.remove(id);
+        }
+        System.out.println("debug");
+    }
+
     private String getEntityIdOrLocator(BaseModel model) {
         try {
             var idField = model.getClass().getDeclaredField("id");
