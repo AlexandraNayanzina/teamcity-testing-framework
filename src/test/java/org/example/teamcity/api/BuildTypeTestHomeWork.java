@@ -1,5 +1,6 @@
 package org.example.teamcity.api;
 
+import com.example.teamcity.api.enums.ProjectRoles;
 import com.example.teamcity.api.models.*;
 import com.example.teamcity.api.requests.CheckedRequests;
 import com.example.teamcity.api.requests.UncheckedRequests;
@@ -7,7 +8,9 @@ import com.example.teamcity.api.requests.unchecked.UncheckedBase;
 import com.example.teamcity.api.spec.Specifications;
 import org.testng.annotations.Test;
 import static com.example.teamcity.api.enums.Endpoint.*;
+import static com.example.teamcity.api.enums.ProjectRoles.PROJECT_ADMIN;
 import static com.example.teamcity.api.generators.TestDataGenerator.generate;
+import static com.example.teamcity.api.spec.Specifications.assertStatusCodeAndBody;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.containsString;
 
@@ -55,22 +58,20 @@ public class BuildTypeTestHomeWork extends BaseApiTest {
         requester.getRequest(PROJECTS).create(project);
 
         // the user creates first buildType for the project
-        var buildType1 = testData.getBuildType();
-        requester.getRequest(BUILD_TYPES).create(buildType1);
+        var firstBuildType = testData.getBuildType();
+        requester.getRequest(BUILD_TYPES).create(firstBuildType);
 
         // WHEN: the user creates second buildType
-        var testData2 = generate();
-        var buildType2 = testData2.getBuildType();
-        buildType2.setId(buildType1.getId());
-        buildType2.setProject(project);
+        var secondTestData = generate();
+        var secondBuildType = secondTestData.getBuildType();
+        secondBuildType.setId(firstBuildType.getId());
+        secondBuildType.setProject(project);
         var requesterUnchecked = new UncheckedBase(userAuth, BUILD_TYPES);
-        var response = requesterUnchecked.create(buildType2);
+        var response = requesterUnchecked.create(secondBuildType);
 
         // THEN assert: BAD_REQUEST
-        response.then()
-                .assertThat()
-                .statusCode(SC_BAD_REQUEST)
-                .body(containsString("The build configuration / template ID \"%s\" is already used by another configuration or template".formatted(testData.getBuildType().getId())));
+        assertStatusCodeAndBody(response, SC_BAD_REQUEST, "The build configuration / template ID \"%s\" is already used by another configuration or template".formatted(testData.getBuildType().getId()));
+
     }
 
     @Test(description = "Project Admin should be able to create build type for their project", groups = {"Positive", "Roles"})
@@ -82,7 +83,7 @@ public class BuildTypeTestHomeWork extends BaseApiTest {
 
         // SuperUser creates an ProjectAdmin user assigned to the project
         var projectAdmin = testData.getUser();
-        var roles = generate(Roles.class, "PROJECT_ADMIN", "p:" + testData.getProject().getId());
+        var roles = generate(Roles.class, PROJECT_ADMIN.getRoleName(), "p:" + testData.getProject().getId());
         projectAdmin.setRoles(roles);
         superUserCheckRequests.getRequest(USERS).create(projectAdmin);
 
@@ -101,36 +102,33 @@ public class BuildTypeTestHomeWork extends BaseApiTest {
     public void projectAdminCreatesBuildTypeForAnotherUserProjectTest() {
         // GIVEN
         // SuperUser creates a project1
-        var project1 = testData.getProject();
-        superUserCheckRequests.getRequest(PROJECTS).create(project1);
+        var firstProject = testData.getProject();
+        superUserCheckRequests.getRequest(PROJECTS).create(firstProject);
 
-        // SuperUser creates a projectAdmin1 assigned to the project1
-        var projectAdmin1 = testData.getUser();
-        var roles1 = generate(Roles.class, "PROJECT_ADMIN", "p:" + testData.getProject().getId());
-        projectAdmin1.setRoles(roles1);
-        superUserCheckRequests.getRequest(USERS).create(projectAdmin1);
+        // SuperUser creates a firstProjectAdmin assigned to the project1
+        var userProjectAdminFirstProject = testData.getUser();
+        var projectAdminRoleFirstProject = generate(Roles.class, "PROJECT_ADMIN", "p:" + testData.getProject().getId());
+        userProjectAdminFirstProject.setRoles(projectAdminRoleFirstProject);
+        superUserCheckRequests.getRequest(USERS).create(userProjectAdminFirstProject);
 
         // SuperUser creates a project2
-        var testData2 = generate();
-        var project2 = testData2.getProject();
-        superUserCheckRequests.getRequest(PROJECTS).create(project2);
+        var secondTestData = generate();
+        var secondProject = secondTestData.getProject();
+        superUserCheckRequests.getRequest(PROJECTS).create(secondProject);
 
-        // SuperUser creates a projectAdmin2 assigned to the project2
-        var projectAdmin2 = testData2.getUser();
-        var roles2 = generate(Roles.class, "PROJECT_ADMIN", "p:" + project2.getId());
-        projectAdmin2.setRoles(roles2);
-        superUserCheckRequests.getRequest(USERS).create(projectAdmin2);
+        // SuperUser creates a secondProjectAdmin assigned to the project2
+        var userProjectAdminSecondProject = secondTestData.getUser();
+        var projectAdminRoleSecondProject = generate(Roles.class, "PROJECT_ADMIN", "p:" + secondProject.getId());
+        userProjectAdminSecondProject.setRoles(projectAdminRoleSecondProject);
+        superUserCheckRequests.getRequest(USERS).create(userProjectAdminSecondProject);
 
-        // WHEN: projectAdmin2 creates a buildType for the project1
+        // WHEN: secondProjectAdmin creates a buildType for the project1
         var buildType = testData.getBuildType();
-        buildType.setProject(project1);
-        var requester = new UncheckedRequests(Specifications.authSpec(projectAdmin2));
+        buildType.setProject(firstProject);
+        var requester = new UncheckedRequests(Specifications.authSpec(userProjectAdminSecondProject));
         var response = requester.getRequest(BUILD_TYPES).create(buildType);
 
         // THEN: BAD_REQUEST
-        response.then()
-                .assertThat()
-                .statusCode(SC_FORBIDDEN)
-                .body(containsString("You do not have enough permissions to edit project with"));
+        assertStatusCodeAndBody(response, SC_FORBIDDEN, "You do not have enough permissions to edit project with");
     }
 }

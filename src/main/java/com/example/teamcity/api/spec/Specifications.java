@@ -3,10 +3,17 @@ package com.example.teamcity.api.spec;
 import com.example.teamcity.api.config.Config;
 import com.example.teamcity.api.models.User;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import org.apache.http.HttpStatus;
+
+import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
+import static org.hamcrest.Matchers.containsString;
 
 public class Specifications {
 
@@ -50,5 +57,12 @@ public class Specifications {
         var requestBuilder = reqBuilder();
         requestBuilder.setBaseUri("http://%s:%s@%s".formatted(user.getUsername(), user.getPassword(), Config.getProperty("host")));
         return requestBuilder.build();
+    }
+
+    public static void assertStatusCodeAndBody(Response response, int statusCode,String responseBody) {
+        response.then()
+                .assertThat()
+                .statusCode(statusCode)
+                .body(containsString(responseBody));
     }
 }
