@@ -1,6 +1,5 @@
 package org.example.teamcity.api;
 
-import com.example.teamcity.api.enums.ProjectRoles;
 import com.example.teamcity.api.models.*;
 import com.example.teamcity.api.requests.CheckedRequests;
 import com.example.teamcity.api.requests.UncheckedRequests;
@@ -12,7 +11,6 @@ import static com.example.teamcity.api.enums.ProjectRoles.PROJECT_ADMIN;
 import static com.example.teamcity.api.generators.TestDataGenerator.generate;
 import static com.example.teamcity.api.spec.Specifications.assertStatusCodeAndBody;
 import static org.apache.http.HttpStatus.*;
-import static org.hamcrest.Matchers.containsString;
 
 @Test(groups = {"Regression"})
 public class BuildTypeTestHomeWork extends BaseApiTest {
@@ -37,7 +35,7 @@ public class BuildTypeTestHomeWork extends BaseApiTest {
 
         // THEN
         // assert the build type can be retrieved by id
-        var createdBuildType = requests.<BuildType>getRequest(BUILD_TYPES).read(buildType.getId());
+        var createdBuildType = requests.<BuildType>getRequest(BUILD_TYPES).read("id:" + buildType.getId());
         softy.assertEquals(buildType.getName(), createdBuildType.getName(), "Build Type name is not correct");
         softy.assertEquals(buildType.getProject(), createdBuildType.getProject(), "Build Type project is not correct");
     }
