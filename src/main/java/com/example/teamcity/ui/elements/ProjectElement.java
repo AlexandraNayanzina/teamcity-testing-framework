@@ -16,7 +16,6 @@ public class ProjectElement extends BasePageElement {
         this.name = find("span[class*='MiddleEllipsis']");
         this.link = find("a");
         this.button = find("button");
-
     }
 
 }

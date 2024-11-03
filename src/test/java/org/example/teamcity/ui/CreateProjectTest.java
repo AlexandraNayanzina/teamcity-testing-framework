@@ -47,8 +47,6 @@ public class CreateProjectTest extends BaseUiTest {
         step("Save Project name and Build Type name ");
         step("Click Proceed");
 
-
-
         //THEN
         // Verifying API state
         // (If data was sent correctly c UI to API)
