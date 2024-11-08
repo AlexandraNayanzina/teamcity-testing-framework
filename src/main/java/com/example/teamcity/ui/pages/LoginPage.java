@@ -18,7 +18,6 @@ public class LoginPage extends BasePage{
 
 
     public ProjectsPage login(User user) {
-        // Method val instead of (clear, sendKeys)
         inputUsername.val(user.getUsername());
         inputPassword.val(user.getPassword());
         inputSubmitLogin.click();

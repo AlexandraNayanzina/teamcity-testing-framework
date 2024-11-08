@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import com.example.teamcity.ui.pages.BasePage;
-
 import static com.codeborne.selenide.Selenide.$;
 
 public abstract class CreateBasePage extends BasePage {

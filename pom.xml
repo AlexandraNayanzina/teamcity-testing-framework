@@ -19,6 +19,7 @@
         <lombok.version>1.18.34</lombok.version>
         <jackson.version>2.17.2</jackson.version>
         <selenide.version>7.5.0</selenide.version>
+        <awaitility.version>3.0.0</awaitility.version>
     </properties>
 
     <dependencies>
@@ -82,7 +83,16 @@
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility-proxy</artifactId>
+            <version>${awaitility.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
