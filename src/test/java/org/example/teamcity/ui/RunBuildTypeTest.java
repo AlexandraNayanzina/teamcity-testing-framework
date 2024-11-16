@@ -9,6 +9,7 @@ import com.example.teamcity.api.spec.Specifications;
 import com.example.teamcity.ui.pages.admin.CreateBuildStepPage;
 import com.example.teamcity.ui.pages.buildConfiguration.BuildTypeStatusPage;
 import org.awaitility.Awaitility;
+import org.example.teamcity.BuildSteps;
 import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -78,7 +79,8 @@ public class RunBuildTypeTest extends BaseUiTest {
         var build = checkedBuildQueueRequest.create(Build.builder()
                 .buildType(testData.getBuildType())
                 .build());
-        build = waitUntilBuildIsFinished(build);
+        var buildStep = new BuildSteps();
+        build = buildStep.waitUntilBuildIsFinished(build, createdUser);
         softy.assertEquals(build.getStatus(), "SUCCESS", "The build Status is not correct");
 
         // UI -> Verify that build was run successfully on the BuildTypeStatus page
@@ -88,20 +90,6 @@ public class RunBuildTypeTest extends BaseUiTest {
         // Teardown method - Delete the project
         TestDataStorage.getInstance().addCreatedEntity(PROJECTS, createdProject);
 
-    }
-
-    private Build waitUntilBuildIsFinished(Build build) {
-        var atomicBuild = new AtomicReference<>(build);
-        var checkedBuildRequest = new CheckedBase<Build>(Specifications.getSpec()
-                .authSpec(testData.getUser()), BUILDS);
-        Awaitility.await()
-                .atMost(45, TimeUnit.SECONDS)
-                .pollInterval(1, TimeUnit.SECONDS)
-                .until(() -> {
-                    atomicBuild.set(checkedBuildRequest.read(atomicBuild.get().getId()));
-                    return "finished".equals(atomicBuild.get().getState());
-                });
-        return atomicBuild.get();
     }
 
 }
