@@ -1,0 +1,38 @@
+
+docker pull selenoid/vnc:firefox_89.0
+docker pull selenoid/vnc:chrome_91.0
+docker pull selenoid/vnc:opera_90.0
+
+# Start selenoid
+docker run -d   \
+    --name selenoid                                 \
+    -p 4444:4444                                    \
+    -v /var/run/docker.sock:/var/run/docker.sock    \
+    -v $(pwd)/selenoid/config/:/etc/selenoid/:ro    \
+    -v $(pwd)/selenoid/logs:/opt/selenoid/logs/     \
+    aerokube/selenoid:latest-release                \
+    -log-output-dir /opt/selenoid/logs
+
+
+# Start selenoid-ui
+
+ipconfig getifaddr en0  # macos
+10.0.0.234
+
+docker run -d \
+    --name selenoid-ui \
+    -p 8080:8080 \
+    aerokube/selenoid-ui \
+    --selenoid-uri http://10.0.0.234:4444
+
+
+
+
+docker run --name teamcity-server-instance  \
+    -v $(pwd)/datadir:/data/teamcity_server/datadir \
+    -v $(pwd)/logs:/opt/teamcity/logs  \
+    -p 8111:8111 \
+    jetbrains/teamcity-server:2023.11.1
+
+Selenoid 1.11.3
+

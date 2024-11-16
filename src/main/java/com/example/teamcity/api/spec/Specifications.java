@@ -17,18 +17,6 @@ import static org.hamcrest.Matchers.containsString;
 
 public class Specifications {
 
-    /* Class Specification realises a design pattern - Singleton (restricts the instantiation of a class to a singular instance)
-    1. Create empty Constructor
-    2. Create method that returns the spec
-    private Specifications(){}
-
-    public static Specifications getSpec() {
-    if (spec == null) {
-    spec = new Specifications();}
-    return spec;
-    }
-     */
-
     private static Specifications spec;
 
 
@@ -39,6 +27,13 @@ public class Specifications {
         requestBuilder.setContentType(ContentType.JSON);
         requestBuilder.setAccept(ContentType.JSON);
         return requestBuilder;
+    }
+
+    public static Specifications getSpec() {
+        if (spec == null) {
+            spec = new Specifications();
+        }
+        return spec;
     }
 
     public static RequestSpecification superUserSpec() {

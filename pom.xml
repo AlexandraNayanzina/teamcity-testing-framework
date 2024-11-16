@@ -18,6 +18,8 @@
         <rest-assured.version>5.5.0</rest-assured.version>
         <lombok.version>1.18.34</lombok.version>
         <jackson.version>2.17.2</jackson.version>
+        <selenide.version>7.5.0</selenide.version>
+        <awaitility.version>3.0.0</awaitility.version>
     </properties>
 
     <dependencies>
@@ -38,6 +40,11 @@
             <artifactId>allure-selenide</artifactId>
             <version>${allure.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -76,7 +83,16 @@
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility-proxy</artifactId>
+            <version>${awaitility.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
