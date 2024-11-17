@@ -34,5 +34,5 @@ jobs:
 
       - name: Run tests
         continue-on-error: true
-        # Put the "group" parameter to the command to NOT run the TeamCity setup by accident
-        run: ./mvnw test -Dtest='com.example.teamcity.${{ inputs.package }}.**' -Dgroups=Regression
+        # Put the "group" parameter to the command to NOT run the TeamCity setup by  accident
+        run: ./mvnw test -X -Dtest='com.example.teamcity.${{ inputs.package }}.**' -Dgroups=Regression

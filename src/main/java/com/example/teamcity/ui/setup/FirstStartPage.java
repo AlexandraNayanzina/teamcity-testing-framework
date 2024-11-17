@@ -1,10 +1,9 @@
-package com.example.teamcity.ui.pages.setup;
+package com.example.teamcity.ui.setup;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.example.teamcity.ui.pages.BasePage;
-
 import static com.codeborne.selenide.Selenide.$;
 
 public class FirstStartPage extends BasePage {
