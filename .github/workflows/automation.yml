@@ -3,7 +3,6 @@ name: Run tests
 on:
   workflow_call:
     inputs:
-      :
       package:
         description: api | ui
         required: true

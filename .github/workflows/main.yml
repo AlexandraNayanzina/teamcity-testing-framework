@@ -5,7 +5,7 @@ on: push
 jobs:
   # Build back-end and deploy to stage/review app
   backend:
-    users: ./.github/workflows/backend-stage.yml
+    uses: ./.github/workflows/backend-stage.yml
 
   # Build front-end and deploy to stage/review app
   frontend:
