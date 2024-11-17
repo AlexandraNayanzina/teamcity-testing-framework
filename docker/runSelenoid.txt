@@ -10,8 +10,7 @@ docker run -d   \
     -v /var/run/docker.sock:/var/run/docker.sock    \
     -v $(pwd)/selenoid/config/:/etc/selenoid/:ro    \
     -v $(pwd)/selenoid/logs:/opt/selenoid/logs/     \
-    aerokube/selenoid:latest-release                \
-    -log-output-dir /opt/selenoid/logs
+    aerokube/selenoid:latest-release
 
 
 # Start selenoid-ui
@@ -26,13 +25,13 @@ docker run -d \
     --selenoid-uri http://10.0.0.234:4444
 
 
-
-
 docker run --name teamcity-server-instance  \
     -v $(pwd)/datadir:/data/teamcity_server/datadir \
     -v $(pwd)/logs:/opt/teamcity/logs  \
     -p 8111:8111 \
     jetbrains/teamcity-server:2023.11.1
 
-Selenoid 1.11.3
+
+
+Selenoid version 1.11.3
 
