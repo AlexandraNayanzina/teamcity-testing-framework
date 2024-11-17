@@ -46,7 +46,7 @@ runs:
       shell: bash
       # Parameter -u 0 runs the container on behalf of root user to have access to write files to directory in volumes
       run: |
-        docker run -u 0 -d                                \ 
+        docker run -d                                   \
         --name teamcity-server                 \
         -v $(pwd)/tmp/teamcity_server/datadir:/data/teamcity_server/datadir \
         -v $(pwd)/tmp/teamcity_server/logs:/opt/teamcity/logs               \
