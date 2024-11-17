@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 public abstract class BasePage {
     protected  static final Duration BASE_WAITING = Duration.ofSeconds(30);
-    protected  static final Duration LONG_WAITING = Duration.ofMinutes(1);
+    protected  static final Duration LONG_WAITING = Duration.ofMinutes(3);
 
     protected <T extends BasePageElement> List<T> generatePageelements(
             ElementsCollection collection, Function<SelenideElement, T> creator)
