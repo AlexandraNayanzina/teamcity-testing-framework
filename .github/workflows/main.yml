@@ -2,7 +2,7 @@ name: TeamCity deployment
 
 on: push
 
-job:
+jobs:
   # Build back-end and deploy to stage/review app
   backend:
     users: ./.github/workflows/backend-stage.yml
