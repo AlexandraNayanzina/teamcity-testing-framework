@@ -18,7 +18,7 @@ runs:
       shell: bash
       # Getting ip address to refer from another container, taken from Selenoid documentation
       run: |
-       echo "HOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)" >> $ GITHUB_ENV
+        echo "HOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)" >> $GITHUB_ENV
 
     - name: Setup host config property
       shell: bash
@@ -27,13 +27,14 @@ runs:
     - name: Pull Selenoid browsers
       shell: bash
       # Parse browsers.json and run docker pull command
-      run: | 
+      run: |
         for browser in $(awk -F'"' '/"image": "/{print $4}' "config/browsers.json"); do
-        docker pull $browser
+          docker pull $browser
         done
+
     - name: Run Selenoid
       shell: bash
-      # Flag -d runs docker container in a headless mode
+      # Flag -d runs docker container in a detached mode
       run: |
         docker run -d                                   \
         --name selenoid                                 \
@@ -46,18 +47,25 @@ runs:
       shell: bash
       # Parameter -u 0 runs the container on behalf of root user to have access to write files to directory in volumes
       run: |
-        docker run -d                                   \
-        --name teamcity-server                           \
+        docker run -u 0 -d --name teamcity-server  \
         -v $(pwd)/tmp/teamcity_server/datadir:/data/teamcity_server/datadir \
-        -v $(pwd)/tmp/teamcity_server/logs:/opt/teamcity/logs               \
-        -p 8111:8111                                    \
+        -v $(pwd)/tmp/teamcity_server/logs:/opt/teamcity/logs  \
+        -p 8111:8111 \
         jetbrains/teamcity-server:2023.11.1
+
+    - name: Cat config.properties
+      shell: bash
+      run: cat src/main/resources/config.properties
 
     - name: Setup TeamCity Server
       shell: bash
       # Open Setup TeamCity page, accept license, select database
-      run: ./mvnw clean test -Dtest=SetupServerTest#setupTeamCityServerTest
+      run: ./mvnw clean test -e -Dtest=SetupServerTest#setupTeamCityServerTest
 
-    - name: Setup superUserToken as environment variable
+    - name: Setup superUserToken environment variable
+      shell: bash
+      run: echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
+
+    - name: Set up superUserToken config property
       shell: bash
       run: echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties

@@ -3,12 +3,9 @@ package org.example.teamcity.ui;
 import com.codeborne.selenide.Condition;
 import com.example.teamcity.api.enums.Endpoint;
 import com.example.teamcity.api.models.Project;
-import com.example.teamcity.ui.pages.LoginPage;
 import com.example.teamcity.ui.pages.ProjectsPage;
-import com.example.teamcity.ui.pages.admin.CreateBasePage;
 import com.example.teamcity.ui.pages.admin.CreateProjectPage;
 import com.example.teamcity.ui.pages.admin.ProjectPage;
-import org.example.teamcity.BaseTest;
 import org.testng.annotations.Test;
 
 import static io.qameta.allure.Allure.step;

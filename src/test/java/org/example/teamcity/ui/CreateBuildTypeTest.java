@@ -7,17 +7,13 @@ import com.example.teamcity.api.models.BuildType;
 import com.example.teamcity.api.models.Project;
 import com.example.teamcity.api.requests.CheckedRequests;
 import com.example.teamcity.api.spec.Specifications;
-import com.example.teamcity.ui.pages.ProjectsPage;
 import com.example.teamcity.ui.pages.admin.BuildTypePage;
 import com.example.teamcity.ui.pages.admin.CreateBuildTypePage;
-import com.example.teamcity.ui.pages.admin.CreateProjectPage;
-import com.example.teamcity.ui.pages.admin.ProjectPage;
 import org.testng.annotations.Test;
 
 import static com.example.teamcity.api.enums.Endpoint.BUILD_TYPES;
 import static com.example.teamcity.api.enums.Endpoint.PROJECTS;
 import static com.example.teamcity.api.generators.TestDataGenerator.generate;
-import static io.qameta.allure.Allure.step;
 import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 
 @Test(groups = {"Regression"})
