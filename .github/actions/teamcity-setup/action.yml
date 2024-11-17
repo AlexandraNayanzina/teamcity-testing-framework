@@ -60,7 +60,7 @@ runs:
     - name: Setup TeamCity Server
       shell: bash
       # Open Setup TeamCity page, accept license, select database
-      run: ./mvnw clean test -e -Dtest=SetupServerTest#setupTeamCityServerTest
+      run: ./mvnw clean test -X -e -Dtest=SetupServerTest#setupTeamCityServerTest
 
     - name: Setup superUserToken environment variable
       shell: bash
