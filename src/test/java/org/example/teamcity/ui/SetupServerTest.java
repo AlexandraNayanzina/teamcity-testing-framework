@@ -5,10 +5,6 @@ import org.testng.annotations.Test;
 
 public class SetupServerTest extends BaseUiTest{
 
-    public SetupServerTest() {
-    }
-
-
     @Test(groups = {"Setup"})
     public void setupTeamCityServerTest() {
         FirstStartPage

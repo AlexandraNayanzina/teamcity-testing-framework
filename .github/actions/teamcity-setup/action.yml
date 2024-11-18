@@ -3,6 +3,19 @@ name: Teamcity Setup
 runs:
   using: composite
   steps:
+
+    - name: Set up settings.xml
+      shell: bash
+      run: |
+          mkdir -p ~/.m2
+          echo "${{ secrets.SETTINGS_XML }}" > ~/.m2/settings.xml
+
+    - name: Set up settings-security.xml
+      shell: bash
+      run: |
+          mkdir -p ~/.m2
+          echo "${{ secrets.SETTINGS_SECURITY }}" > ~/.m2/settings-security.xml
+
     - name: Setup JDK
       uses: actions/setup-java@v4
       with:
