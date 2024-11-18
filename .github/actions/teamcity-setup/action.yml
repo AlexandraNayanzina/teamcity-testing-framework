@@ -64,6 +64,11 @@ runs:
       shell: bash
       run: cat src/main/resources/config.properties
 
+    - name: Set up superUserToken config property
+      shell: bash
+      run: echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
+
+
     - name: Setup TeamCity Server
       shell: bash
       # Open Setup TeamCity page, accept license, select database
