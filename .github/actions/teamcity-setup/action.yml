@@ -7,14 +7,8 @@ runs:
     - name: Set up settings.xml
       shell: bash
       run: |
-          mkdir -p ~/.m2
-          echo "${{ secrets.SETTINGS_XML }}" > ~/.m2/settings.xml
-
-    - name: Set up settings-security.xml
-      shell: bash
-      run: |
-          mkdir -p ~/.m2
-          echo "${{ secrets.SETTINGS_SECURITY }}" > ~/.m2/settings-security.xml
+        mkdir -p ~/.m2
+        echo "<settings>...</settings>" > ~/.m2/settings.xml
 
     - name: Setup JDK
       uses: actions/setup-java@v4
