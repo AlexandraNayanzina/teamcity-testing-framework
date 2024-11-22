@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import static com.github.viclovsky.swagger.coverage.SwaggerCoverageConstants.OUTPUT_DIRECTORY;
 import static org.hamcrest.Matchers.containsString;
 
-public final class Specifications {
+public class Specifications {
 
     private static Specifications spec;
 
