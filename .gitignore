@@ -42,3 +42,4 @@ build/
 /logs/
 /selenoid/logs/
 /datadir/
+/swagger-coverage.zip

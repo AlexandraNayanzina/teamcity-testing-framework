@@ -2,23 +2,24 @@ package com.example.teamcity.api.spec;
 
 import com.example.teamcity.api.config.Config;
 import com.example.teamcity.api.models.User;
+import com.github.viclovsky.swagger.coverage.FileSystemOutputWriter;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import org.apache.http.HttpStatus;
-
-import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
+import java.nio.file.Paths;
+import static com.github.viclovsky.swagger.coverage.SwaggerCoverageConstants.OUTPUT_DIRECTORY;
 import static org.hamcrest.Matchers.containsString;
 
-public class Specifications {
+public final class Specifications {
 
     private static Specifications spec;
 
+    private Specifications() {
+    }
 
     private static RequestSpecBuilder  reqBuilder(){
         var requestBuilder = new RequestSpecBuilder();
@@ -26,6 +27,11 @@ public class Specifications {
         requestBuilder.addFilter(new ResponseLoggingFilter());
         requestBuilder.setContentType(ContentType.JSON);
         requestBuilder.setAccept(ContentType.JSON);
+        requestBuilder.addFilter(new SwaggerCoverageRestAssured(
+                new FileSystemOutputWriter(
+                        Paths.get("target/" + OUTPUT_DIRECTORY)
+                )
+        ));
         return requestBuilder;
     }
 
@@ -61,3 +67,4 @@ public class Specifications {
                 .body(containsString(responseBody));
     }
 }
+
