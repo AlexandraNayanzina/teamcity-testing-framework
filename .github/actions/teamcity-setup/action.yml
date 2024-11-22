@@ -68,15 +68,12 @@ runs:
       shell: bash
       run: echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
 
+    - name: Setup superUserToken environment variable
+      shell: bash
+      run: echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
+
     - name: Setup TeamCity Server
       shell: bash
       # Open Setup TeamCity page, accept license, select database
       run: ./mvnw clean test -X -e -Dtest=SetupServerTest#setupTeamCityServerTest
 
-    - name: Setup superUserToken environment variable
-      shell: bash
-      run: echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
-
-    - name: Set up superUserToken config property
-      shell: bash
-      run: echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
