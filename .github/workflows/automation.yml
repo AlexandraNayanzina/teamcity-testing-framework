@@ -39,11 +39,15 @@ jobs:
         # Put the "group" parameter to the command to NOT run the TeamCity setup by  accident
         run: ./mvnw test -X -Dtest='com.example.teamcity.${{ inputs.package }}.**' -Dgroups=Regression
 
+      # Create a report with API tests coverage based on Swagger
+      # Documentation https://github.com/viclovsky/swagger-coverage
+      # Need to add SwaggerCoverageRestAssured filter to RestAssured
       - name: Run Swagger Coverage
         continue-on-error: true
         if: ${{ inputs.package == 'api'}}
         run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
 
+      # Save Swagger report to github Actions artifacts
       - name: Save Swagger Coverage
         uses: actions/upload-artifact@v4
         if: ${{ inputs.package == 'api'}}
