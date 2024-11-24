@@ -1,0 +1,91 @@
+<div>POST to http://test_KjiAQwgzrp:test_WpVtlgIUzx@172.17.0.1:8111/app/rest/buildTypes</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;id&quot;: &quot;test_eHNDGVrsSM&quot;,
+    &quot;name&quot;: &quot;test_bEMDDNrxyA&quot;,
+    &quot;project&quot;: {
+        &quot;id&quot;: &quot;test_WDOgIvOUEc&quot;,
+        &quot;name&quot;: &quot;test_iGOtHVikxJ&quot;,
+        &quot;locator&quot;: null
+    },
+    &quot;steps&quot;: {
+        &quot;count&quot;: 1,
+        &quot;step&quot;: [
+            {
+                &quot;id&quot;: null,
+                &quot;name&quot;: &quot;Print Hello world&quot;,
+                &quot;type&quot;: &quot;simpleRunner&quot;,
+                &quot;properties&quot;: {
+                    &quot;property&quot;: [
+                        {
+                            &quot;name&quot;: &quot;use.custom.script&quot;,
+                            &quot;value&quot;: &quot;false&quot;
+                        },
+                        {
+                            &quot;name&quot;: &quot;command.executable&quot;,
+                            &quot;value&quot;: &quot;echo&quot;
+                        },
+                        {
+                            &quot;name&quot;: &quot;command.parameters&quot;,
+                            &quot;value&quot;: &quot;Hello world!&quot;
+                        }
+                    ],
+                    &quot;count&quot;: 3
+                }
+            }
+        ]
+    }
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: application/json, application/javascript, text/javascript, text/json</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;http://test_KjiAQwgzrp:test_WpVtlgIUzx@172.17.0.1:8111/app/rest/buildTypes&#39; -H &#39;Accept: application/json, application/javascript, text/javascript, text/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;id&quot;: &quot;test_eHNDGVrsSM&quot;,
+    &quot;name&quot;: &quot;test_bEMDDNrxyA&quot;,
+    &quot;project&quot;: {
+        &quot;id&quot;: &quot;test_WDOgIvOUEc&quot;,
+        &quot;name&quot;: &quot;test_iGOtHVikxJ&quot;,
+        &quot;locator&quot;: null
+    },
+    &quot;steps&quot;: {
+        &quot;count&quot;: 1,
+        &quot;step&quot;: [
+            {
+                &quot;id&quot;: null,
+                &quot;name&quot;: &quot;Print Hello world&quot;,
+                &quot;type&quot;: &quot;simpleRunner&quot;,
+                &quot;properties&quot;: {
+                    &quot;property&quot;: [
+                        {
+                            &quot;name&quot;: &quot;use.custom.script&quot;,
+                            &quot;value&quot;: &quot;false&quot;
+                        },
+                        {
+                            &quot;name&quot;: &quot;command.executable&quot;,
+                            &quot;value&quot;: &quot;echo&quot;
+                        },
+                        {
+                            &quot;name&quot;: &quot;command.parameters&quot;,
+                            &quot;value&quot;: &quot;Hello world!&quot;
+                        }
+                    ],
+                    &quot;count&quot;: 3
+                }
+            }
+        ]
+    }
+}&#39;
+    </div>
+
