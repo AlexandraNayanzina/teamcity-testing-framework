@@ -10,7 +10,7 @@ jobs:
       - name: Deploy backend to production
         run: echo 'Deploy of backend to prod'
 
-  deploy-satge:
+  deploy-stage:
     needs: test
     runs-on: ubuntu-latest
     steps:
