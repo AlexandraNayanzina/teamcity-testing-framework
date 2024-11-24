@@ -2,7 +2,10 @@ package com.example.teamcity.api.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.Properties;
+
+import static java.util.Objects.nonNull;
 
 public class Config {
     // class Config -> Singleton
@@ -45,5 +48,10 @@ public class Config {
         } else {
             return property;
         }
+    }
+
+    public static String getPropertyOrDefault(String key, String defaultValue) {
+        String property = getConfig().properties.getProperty(key);
+        return nonNull(property) ? property : defaultValue;
     }
 }

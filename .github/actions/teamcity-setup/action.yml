@@ -89,6 +89,11 @@ runs:
         echo 'verify'
         docker ps
 
+    - name: Setup TeamCity Server
+      shell: bash
+      # Open Setup TeamCity page, accept license, select database
+      run: ./mvnw clean test -X -e -Dtest=SetupServerTest#setupTeamCityServerTest
+
     - name: Setup superUserToken environment variable
       shell: bash
       run: |
@@ -105,10 +110,7 @@ runs:
         echo 'verify'
         cat src/main/resources/config.properties
 
-    - name: Setup TeamCity Server
-      shell: bash
-      # Open Setup TeamCity page, accept license, select database
-      run: ./mvnw clean test -X -e -Dtest=SetupServerTest#setupTeamCityServerTest
+    
 
 
 
