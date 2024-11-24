@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build backend
-        run: echo Building backend, run unit tests, creating a docker image and publish it
+        run: echo 'Building backend, run unit tests, creating a docker image and publish it'
 
   deploy-satge:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploying of backend to stage/review app
-        run: echo Deploying of backend
+        run: echo 'Deploying of backend'

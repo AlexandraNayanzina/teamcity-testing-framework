@@ -34,8 +34,6 @@ jobs:
 
       - name: Run tests
         continue-on-error: true
-
-
         # Put the "groups" parameter to the command to NOT run the TeamCity setup by  accident
         run: ./mvnw test -X -Dtest='org.example.teamcity.${{ inputs.package }}.**' -Dgroups=Regression
 
@@ -45,7 +43,10 @@ jobs:
       - name: Run Swagger Coverage
         continue-on-error: true
         if: ${{ inputs.package == 'api'}}
-        run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
+        run: |
+          echo 'verify prerequisites'
+          echo $HOST
+          .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
 
       # Save Swagger report to github Actions artifacts
       - name: Save Swagger Coverage

@@ -43,3 +43,5 @@ build/
 /selenoid/logs/
 /datadir/
 /swagger-coverage.zip
+/.swagger-codegen-ignore
+/.swagger-codegen/VERSION

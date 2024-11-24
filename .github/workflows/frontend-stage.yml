@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build frontend
-        run: echo Building frontend, run unit tests, creating a docker image and publish it
+        run: echo 'Building frontend, run unit tests, creating a docker image and publish it'
 
   deply-stage:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploying of frontend to stage/review app
-        run: echo Deploying of frontend
+        run: echo 'Deploying of frontend'
