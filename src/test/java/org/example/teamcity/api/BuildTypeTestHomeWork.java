@@ -17,6 +17,7 @@ public class BuildTypeTestHomeWork extends BaseApiTest {
 
     @Test(description = "User should be able to create a build type", groups = {"Positive", "CRUD"})
     public void userCreatesBuildTypeTest() {
+
         // GIVEN
         // SuperUser creates a user
         var user = testData.getUser();

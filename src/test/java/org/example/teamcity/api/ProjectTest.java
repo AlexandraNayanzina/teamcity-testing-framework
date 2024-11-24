@@ -4,6 +4,7 @@ import com.example.teamcity.api.generators.TestDataStorage;
 import org.testng.annotations.Test;
 import static com.example.teamcity.api.enums.Endpoint.PROJECTS;
 import static com.example.teamcity.api.generators.TestDataGenerator.generate;
+import static io.qameta.allure.Allure.step;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.containsString;
 
@@ -11,7 +12,10 @@ import static org.hamcrest.Matchers.containsString;
 public class ProjectTest extends BaseApiTest {
 
     @Test(description = "Test Case: Successful project creation", groups = {"Positive"})
+
     public void projectCreatedSuccessfullyTest() {
+
+        step("!!!!!!!!!!!!!!!!");
         // Given: valid project
         var project = testData.getProject();
 
