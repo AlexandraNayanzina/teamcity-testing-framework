@@ -10,7 +10,7 @@ jobs:
       - name: Build backend
         run: echo 'Building backend, run unit tests, creating a docker image and publish it'
 
-  deploy-satge:
+  deploy-stage:
     needs: build
     runs-on: ubuntu-latest
     steps:

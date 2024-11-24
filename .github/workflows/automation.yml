@@ -35,7 +35,7 @@ jobs:
       - name: Run tests
         continue-on-error: true
         # Put the "groups" parameter to the command to NOT run the TeamCity setup by  accident
-        run: ./mvnw test -X -Dtest='org.example.teamcity.${{ inputs.package }}.**' -Dgroups=Regression
+        run: ./mvnw test -Dtest='org.example.teamcity.${{ inputs.package }}.**' -Dgroups=Regression
 
       # Create a report with API tests coverage based on Swagger
       # Documentation https://github.com/viclovsky/swagger-coverage
