@@ -28,7 +28,7 @@ jobs:
   manual-prod-approval:
     needs: [automation-api, automation-ui]
     runs-on: ubuntu-latest
-    environment: : 'prod'
+    environment: 'prod'
     steps:
       - name: Approve app to production
         run: echo Approved to production
