@@ -11,8 +11,9 @@ import org.testng.annotations.Test;
 import static io.qameta.allure.Allure.step;
 
 @Test(groups = {"Regression"})
-public class CreateProjectTest extends BaseUiTest {
-    private static final String REPO_URL = "https://github.com/alexpshe/spring-core-for-qa";
+public class CreateProject extends BaseUiTest {
+    //private static final String REPO_URL = "https://github.com/alexpshe/spring-core-for-qa";
+    private static final String REPO_URL = "https://github.com/AlexandraNayanzina/teamcity-testing-framework";
 
     @Test(description = "User should be able to create a project", groups = {"Positive"})
     public void userCreatesProject() {
