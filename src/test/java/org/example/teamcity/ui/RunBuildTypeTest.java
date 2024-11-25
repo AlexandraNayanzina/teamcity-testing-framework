@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static com.example.teamcity.api.enums.Endpoint.*;
 
 
-@Test(groups = {"Regression"})
+@Test()
 public class RunBuildTypeTest extends BaseUiTest {
     private static final String REPO_URL = "https://github.com/alexpshe/spring-core-for-qa";
 

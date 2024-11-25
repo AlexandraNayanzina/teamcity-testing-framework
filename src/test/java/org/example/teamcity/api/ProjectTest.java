@@ -15,26 +15,29 @@ public class ProjectTest extends BaseApiTest {
 
     public void projectCreatedSuccessfullyTest() {
 
-        step("!!!!!!!!!!!!!!!!");
         // Given: valid project
         var project = testData.getProject();
 
+        step("Creating a project");
         // When: create project
         var response = superUserUncheckRequests.getRequest(PROJECTS).create(project);
 
+        step("Verify the project was successfully created");
         // Assert: OK
         response.then().statusCode(SC_OK);
     }
 
-    @Test(description = "Test Case: Bad request when project is created with missing Name field", groups = {"Negative"})
+    @Test(description = "Test Case: Bad request when project is created with null Name field", groups = {"Negative"})
     public void missingNameFieldTest() {
         // Given: project with null name
         var project = testData.getProject();
         project.setName(null);
 
+        step("Creating a project with an name null");
         // When: create project
         var response = superUserUncheckRequests.getRequest(PROJECTS).create(project);
 
+        step("Verify the project was not created");
         // Assert: BAD_REQUEST
         response.then()
                 .statusCode(SC_BAD_REQUEST)
@@ -47,9 +50,11 @@ public class ProjectTest extends BaseApiTest {
         var project = testData.getProject();
         project.setName("");
 
+        step("Creating a project with an empty name");
         // When: create project
         var response = superUserUncheckRequests.getRequest(PROJECTS).create(project);
 
+        step("Verify the project was not created");
         // Assert: BAD_REQUEST
         response.then()
                 .statusCode(SC_BAD_REQUEST)
@@ -65,9 +70,12 @@ public class ProjectTest extends BaseApiTest {
                 "Long name more than 100 characters" + System.currentTimeMillis();
         project.setName(project_name);
 
+        step("Creating a project with the name containing more than 200 characters");
         // When: create project
         var response = superUserUncheckRequests.getRequest(PROJECTS).create(project);
 
+
+        step("Verify the project was created");
         // Assert: OK
         response.then()
                 .statusCode(SC_OK);
